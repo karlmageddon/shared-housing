@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import outreachUserJourneyImage from '../../assets/images/Home/outreach_user_journey_image.png';
-import stabilizationUserJourneyImage from '../../assets/images/Home/stabilization_user_journey_image.png';
-import navUserJourneyImage from '../../assets/images/Home/nav_user_journey_image.png';
-import tenantUserJourneyImage from '../../assets/images/Home/tenant_user_journey_image.png';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
+
+import outreachUserJourneyImage from '../../assets/images/Home/outreach-journey.png';
+import stabilizationUserJourneyImage from '../../assets/images/Home/stabilization-journey.png';
+import navUserJourneyImage from '../../assets/images/Home/nav-journey.png';
+import tenantUserJourneyImage from '../../assets/images/Home/tenant-journey.png';
 
 const useStyles = makeStyles(() => ({
   journeyTitle: {
-    color: 'gray',
+    color: '#212322',
     textAlign: 'center',
     margin: '0 0 50px 0',
-    textDecoration: 'underline',
+    fontFamily: '"Raleway", sans-serif',
   },
   journeysImage: {
     width: '100%',
-    height: '906px',
   },
   formControl: {
     width: '100%',
@@ -36,46 +37,101 @@ const JOURNEY_IMAGES = {
   3: tenantUserJourneyImage,
 };
 
-const UserJourney = () => {
-  const [journey, setJourney] = useState(0);
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-  const handleChange = evt => {
-    const { value } = evt.target;
-    setJourney(value);
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      <Box p={3}>{children}</Box>
+    </Typography>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+const UserJourney = () => {
+  const classes = useStyles();
+  const [value, setJourney] = React.useState(0);
+
+  const handleChange = (event, newJourney) => {
+    setJourney(newJourney);
   };
 
-  const classes = useStyles();
   return (
-    <div className="journey-section">
-      <div className="journey-title">
-        <Typography variant="h5" className={classes.journeyTitle}>
+    <div className="value-section">
+      <div className="value-title">
+        <Typography variant="h4" className={classes.journeyTitle}>
           User Journeys
         </Typography>
       </div>
-      <div className="journeys-photo-container">
-        <img
-          className={classes.journeysImage}
-          src={JOURNEY_IMAGES[journey]}
-          alt="journey"
-        />
+      <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="simple tabs example"
+            indicatorColor="primary"
+            textColor="primary"
+          >
+            <Tab label="Outreach" {...a11yProps(0)} />
+            <Tab label="Stabilization" {...a11yProps(1)} />
+            <Tab label="Navigation" {...a11yProps(2)} />
+            <Tab label="Tenant" {...a11yProps(3)} />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={value} index={0}>
+          <div className="values-photo-container">
+            <img
+              className={classes.journeysImage}
+              src={JOURNEY_IMAGES[value]}
+              alt="value"
+            />
+          </div>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <div className="values-photo-container">
+            <img
+              className={classes.journeysImage}
+              src={JOURNEY_IMAGES[value]}
+              alt="value"
+            />
+          </div>
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <div className="values-photo-container">
+            <img
+              className={classes.journeysImage}
+              src={JOURNEY_IMAGES[value]}
+              alt="value"
+            />
+          </div>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <div className="values-photo-container">
+            <img
+              className={classes.journeysImage}
+              src={JOURNEY_IMAGES[value]}
+              alt="value"
+            />
+          </div>
+        </TabPanel>
       </div>
-
-      <FormControl variant="outlined" className={classes.formControl}>
-        <Select
-          labelid="user-journey-select-label"
-          id="user-journey-select"
-          name="journey"
-          value={journey}
-          onChange={handleChange}
-        >
-          <MenuItem value={0}>Outreach - User Journey</MenuItem>
-          <MenuItem value={1}>Stabilization - User Journey</MenuItem>
-          <MenuItem value={2}>Nav - User Journey</MenuItem>
-          <MenuItem value={3}>Tenant - User Journey</MenuItem>
-        </Select>
-      </FormControl>
     </div>
   );
 };
 
 export default UserJourney;
+
+/* eslint react/prop-types: "off" */

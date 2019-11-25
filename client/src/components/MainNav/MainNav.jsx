@@ -3,15 +3,20 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
 
 const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(3), // only used when nav is fixed
     flexGrow: 1,
+  },
+  NavBar: {
+    boxShadow: 'none',
+    background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
   },
   ToolBar: {
     display: 'flex',
@@ -33,9 +38,14 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     color: 'white',
   },
-  MenuIcon: {
-    verticalAlign: 'middle',
+  title: {
+    width: '220px',
     marginRight: theme.spacing(2),
+    fontFamily: '"Patua One", sans-serif',
+  },
+  HomeIcon: {
+    verticalAlign: 'middle',
+    marginRight: theme.spacing(1),
   },
 }));
 
@@ -90,10 +100,13 @@ const MainNav = () => {
 
   return (
     <nav className={classes.root}>
-      <AppBar color="primary">
-        <Toolbar className={classes.ToolBar}>
-          <div className={classes.LeftContent}>
-            <MenuIcon className={classes.MenuIcon} />
+      <AppBar color="primary" className={classes.NavBar}>
+        <Toolbar className={classes.ToolBar} title="Shared Housing">
+          <HomeIcon className={classes.HomeIcon} />
+          <Typography variant="h5" className={classes.title}>
+            Shared Housing
+          </Typography>
+          <div className={classes.RightContent}>
             <NewsButton />
             <DashboardButton />
             <DemoButton />

@@ -6,12 +6,12 @@ import { makeStyles } from '@material-ui/styles';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    paddingTop: theme.spacing(8),
+    paddingTop: 0,
     paddingBottom: theme.spacing(8),
     backgroundColor: 'transparent',
     borderRadius: 0,
-    border: 'none'
-  }
+    border: 'none',
+  },
 }));
 
 export const SectionContainer = ({ id, children }) => {
@@ -25,9 +25,9 @@ export const SectionContainer = ({ id, children }) => {
 
 SectionContainer.propTypes = {
   id: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
-SectionContainer.defaultProps = {id: null};
+SectionContainer.defaultProps = { id: null };
 
 export default SectionContainer;
